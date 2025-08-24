@@ -12,7 +12,7 @@ const defaultProps: CurrencyConverterFormProps = {
   onBaseCurrencyChange: vi.fn(),
   onTargetCurrencyChange: vi.fn(),
   onAmountBlur: vi.fn(),
-  currencyOptions: ['GBP', 'USD', 'EUR'],
+  // currencyOptions: ['GBP', 'USD', 'EUR'],
 }
 
 describe('CurrencyConverterForm', () => {

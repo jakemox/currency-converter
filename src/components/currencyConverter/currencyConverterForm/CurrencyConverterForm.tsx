@@ -1,6 +1,8 @@
 import type { ChangeEventHandler, FC } from 'react'
 import Select from '../../common/select/Select'
 import Input from '../../common/input/Input'
+import { baseCurrencies } from '../../../constants'
+import { fetchRates } from '../../../api/currencyApi'
 
 export interface CurrencyConverterFormProps {
   amount: string
@@ -11,7 +13,7 @@ export interface CurrencyConverterFormProps {
   onTargetCurrencyChange: ChangeEventHandler<HTMLSelectElement>
   amountError?: string
   onAmountBlur: () => void
-  currencyOptions: string[]
+  // currencyOptions: string[]
 }
 
 const CurrencyConverterForm: FC<CurrencyConverterFormProps> = ({
@@ -23,7 +25,7 @@ const CurrencyConverterForm: FC<CurrencyConverterFormProps> = ({
   onTargetCurrencyChange,
   amountError,
   onAmountBlur,
-  currencyOptions,
+  // currencyOptions,
 }) => {
   return (
     <div className="content-box">
@@ -31,6 +33,7 @@ const CurrencyConverterForm: FC<CurrencyConverterFormProps> = ({
         id="amount"
         value={amount}
         label="Amount"
+        // TODO edit
         prefix="£"
         type="text"
         inputMode="decimal"
@@ -44,23 +47,24 @@ const CurrencyConverterForm: FC<CurrencyConverterFormProps> = ({
         id="base-currency"
         value={baseCurrency}
         label="From"
-        options={currencyOptions}
+        options={baseCurrencies.map(({ code }) => code)}
         onChange={onBaseCurrencyChange}
         className="mb-4"
       />
       <Select
-        id="to"
+        id="target-currency"
         value={targetCurrency}
         label="To"
-        options={currencyOptions}
+        options={['GBP', 'USD']}
         onChange={onTargetCurrencyChange}
         className="mb-8"
       />
       <button
         className="w-full cursor-pointer rounded-full bg-blue-500 p-4 font-bold text-white hover:bg-blue-700 disabled:cursor-not-allowed disabled:bg-gray-300 disabled:text-gray-500"
         disabled={!!amountError}
-        onClick={() => {
-          console.log(amount, baseCurrency, targetCurrency)
+        onClick={async () => {
+          const data = await fetchRates('gbp')
+          console.log(data)
         }}
       >
         Convert
