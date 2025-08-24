@@ -19,7 +19,9 @@ const InputContainer: FC<PropsWithChildren<InputContainerProps>> = ({
       <label htmlFor={id} className="mb-1 block text-sm">
         {label}
       </label>
-      <div className="input-container flex w-full">{children}</div>
+      <div className="flex w-full rounded-lg border border-solid border-black p-4 text-2xl focus-within:outline-1 focus-within:outline-black">
+        {children}
+      </div>
       {error && <div className="mt-1 text-sm font-semibold text-red-700">{error}</div>}
     </div>
   )

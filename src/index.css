@@ -5,6 +5,6 @@
   padding-inline: 2rem;
 }
 
-.input-container {
-  @apply rounded-lg border border-solid border-black p-4 text-2xl focus-within:outline-1 focus-within:outline-black;
+.content-box {
+  @apply mx-auto max-w-xl rounded-3xl bg-white p-6
 }
