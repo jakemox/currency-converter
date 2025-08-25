@@ -1,4 +1,11 @@
-import { useEffect, type ChangeEvent, type FC, type Dispatch, type SetStateAction } from 'react'
+import {
+  useEffect,
+  type ChangeEvent,
+  type FC,
+  type Dispatch,
+  type SetStateAction,
+  useMemo,
+} from 'react'
 import Select, { type Option } from '../../common/select/Select'
 import Input from '../../common/input/Input'
 import { baseCurrencies, PRIORITY_CURRENCIES } from '../constants'
@@ -53,7 +60,8 @@ const CurrencyConverterForm: FC<CurrencyConverterFormProps> = ({ converted, setC
   const amount = useAppSelector(selectAmount)
   const baseCurrency = useAppSelector(selectBaseCurrency)
   const targetCurrency = useAppSelector(selectTargetCurrency)
-  const rates = useAppSelector(selectRates) || {}
+  const storeRates = useAppSelector(selectRates)
+  const rates = useMemo(() => storeRates || {}, [storeRates])
   const status = useAppSelector(selectStatus)
 
   const baseOptions = getOptions(baseCurrencies)
@@ -68,9 +76,10 @@ const CurrencyConverterForm: FC<CurrencyConverterFormProps> = ({ converted, setC
     dispatch(getRates(baseCurrency))
   }, [dispatch, baseCurrency])
 
+  // If user clicks on a base currency that matches the target currency, we change the target currency to gbp or usd
   useEffect(() => {
     if (!rates[targetCurrency.toLowerCase()]) {
-      const available = Object.keys(rates).find((code) => code.toUpperCase() !== baseCurrency)
+      const available = Object.keys(rates).find((code) => code === 'gbp' || code === 'usd')
       if (available) {
         dispatch(setTargetCurrency(available.toUpperCase()))
       }

@@ -2,7 +2,7 @@ import { useState, type FC } from 'react'
 import CurrencyConverterForm from './currencyConverterForm/CurrencyConverterForm'
 import CurrencyConverterResult from './currencyConverterResult/CurrencyConverterResult'
 
-const CurrencyConverterSection: FC = () => {
+const CurrencyConverter: FC = () => {
   const [converted, setConverted] = useState<boolean>(false)
 
   return (
@@ -13,4 +13,4 @@ const CurrencyConverterSection: FC = () => {
   )
 }
 
-export default CurrencyConverterSection
+export default CurrencyConverter
