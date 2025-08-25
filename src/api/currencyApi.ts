@@ -1,28 +1,27 @@
-import type { CurrencyInfo } from '../types/currency'
+import type { Rates } from '../types/currency'
 
 export async function fetchRates(baseCurrency: string) {
-  const url = `http://www.floatrates.com/daily/${baseCurrency}.json`
+  const url = `http://www.floatrates.com/daily/${baseCurrency.toLowerCase()}.json`
 
   try {
     const response = await fetch(url)
     if (!response.ok) {
       throw new Error(`Response status: ${response.status}`)
     }
-    const data: Record<string, CurrencyInfo> = await response.json()
+    const data: Rates = await response.json()
     const rates = Object.entries(data).reduce(
-      (res, [currency, info]) => {
-        res[currency] = { code: info.code, rate: info.rate }
+      (res, [currency, { code, name, rate, inverseRate }]) => {
+        res[currency] = { code, name, rate, inverseRate }
         return res
       },
-      {} as Record<string, CurrencyInfo>,
+      {} as Rates,
     )
-
     return rates
   } catch (error) {
     if (error instanceof Error) {
-      console.error(error.message)
+      throw error.message
     } else {
-      console.error('An unknown error occurred')
+      throw new Error('An unknown error occurred')
     }
   }
 }

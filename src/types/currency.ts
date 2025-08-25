@@ -1,1 +1,2 @@
-export type CurrencyInfo = { code: string; rate: number }
+type CurrencyInfo = { code: string; name: string; rate: number; inverseRate: number }
+export type Rates = Record<string, CurrencyInfo>

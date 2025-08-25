@@ -1,32 +1,38 @@
 import { createAsyncThunk, createSlice, type PayloadAction } from '@reduxjs/toolkit'
 import { fetchRates } from '../../api/currencyApi'
-import type { CurrencyInfo } from '../../types/currency'
+import type { Rates } from '../../types/currency'
+import type { RootState } from '../../store'
 
 interface CurrencyConverterState {
-  amount: number
+  amount: string
   baseCurrency: string
   targetCurrency: string
-  rates?: Record<string, CurrencyInfo>
+  rates?: Rates
   status: 'idle' | 'loading' | 'failed'
+  error?: string
 }
 
 const initialState: CurrencyConverterState = {
-  amount: 1,
+  amount: '1.00',
   baseCurrency: 'GBP',
-  targetCurrency: '',
+  targetCurrency: 'USD',
   rates: {},
   status: 'idle',
+  error: undefined,
 }
 
-const getRates = createAsyncThunk('currencyConverter/getRates', async (baseCurrency: string) => {
-  return await fetchRates(baseCurrency)
-})
+export const getRates = createAsyncThunk(
+  'currencyConverter/getRates',
+  async (baseCurrency: string) => {
+    return await fetchRates(baseCurrency)
+  },
+)
 
 export const currencyConverterSlice = createSlice({
   name: 'currencyConverter',
   initialState,
   reducers: {
-    setAmount(state, action: PayloadAction<number>) {
+    setAmount(state, action: PayloadAction<string>) {
       state.amount = action.payload
     },
     setBaseCurrency(state, action: PayloadAction<string>) {
@@ -45,11 +51,19 @@ export const currencyConverterSlice = createSlice({
         state.status = 'idle'
         state.rates = action.payload
       })
-      .addCase(getRates.rejected, (state) => {
+      .addCase(getRates.rejected, (state, action) => {
         state.status = 'failed'
+        state.error = action.error.message
       })
   },
 })
+
+export const selectAmount = (state: RootState) => state.currencyConverter.amount
+export const selectRates = (state: RootState) => state.currencyConverter.rates
+export const selectBaseCurrency = (state: RootState) => state.currencyConverter.baseCurrency
+export const selectTargetCurrency = (state: RootState) => state.currencyConverter.targetCurrency
+export const selectStatus = (state: RootState) => state.currencyConverter.status
+export const selectError = (state: RootState) => state.currencyConverter.error
 
 export const { setAmount, setBaseCurrency, setTargetCurrency } = currencyConverterSlice.actions
 export default currencyConverterSlice.reducer
