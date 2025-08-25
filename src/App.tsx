@@ -1,6 +1,7 @@
-import CurrencyConverterSection from './components/sections/CurrencyConverterSection'
+import SectionLayout from './components/layout/SectionLayout'
+import CurrencyConverterSection from './components/currencyConverter/CurrencyConverter'
 import { selectError, selectStatus } from './features/currencyConverter/currencySlice'
-import { useAppSelector } from './hooks'
+import { useAppSelector } from './hooks/hooks'
 
 function App() {
   const status = useAppSelector(selectStatus)
@@ -13,7 +14,9 @@ function App() {
           {error}
         </div>
       )}
-      <CurrencyConverterSection />
+      <SectionLayout>
+        <CurrencyConverterSection />
+      </SectionLayout>
     </>
   )
 }

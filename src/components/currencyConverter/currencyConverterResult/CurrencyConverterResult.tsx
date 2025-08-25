@@ -1,12 +1,12 @@
 import type { FC } from 'react'
-import { useAppSelector } from '../../../hooks'
+import { useAppSelector } from '../../../hooks/hooks'
 import {
   selectAmount,
   selectBaseCurrency,
   selectRates,
   selectTargetCurrency,
 } from '../../../features/currencyConverter/currencySlice'
-import { baseCurrencies } from '../../../constants'
+import { baseCurrencies } from '../constants'
 
 const CurrencyConverterResult: FC = () => {
   const amount = useAppSelector(selectAmount)

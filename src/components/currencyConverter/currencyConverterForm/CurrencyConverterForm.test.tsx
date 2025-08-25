@@ -4,7 +4,7 @@ import { describe, expect, it, vi } from 'vitest'
 import CurrencyConverterForm, { type CurrencyConverterFormProps } from './CurrencyConverterForm'
 import '@testing-library/jest-dom'
 import { renderWithProviders } from '../../../utils/test-utils'
-import { mockData } from '../../../mocks/handlers'
+import { mockData } from '../../../mocks/mockData'
 
 const defaultProps: CurrencyConverterFormProps = {
   converted: false,

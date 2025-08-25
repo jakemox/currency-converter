@@ -1,9 +1,9 @@
 import { describe, expect, it } from 'vitest'
-import { mockData } from '../../../mocks/handlers'
 import { renderWithProviders } from '../../../utils/test-utils'
 import CurrencyConverterResult from './CurrencyConverterResult'
 import '@testing-library/jest-dom'
 import { screen } from '@testing-library/dom'
+import { mockData } from '../../../mocks/mockData'
 
 const mockState = {
   amount: '10.00',

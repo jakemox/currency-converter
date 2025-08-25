@@ -1,8 +1,8 @@
 import { useEffect, type ChangeEvent, type FC, type Dispatch, type SetStateAction } from 'react'
 import Select, { type Option } from '../../common/select/Select'
 import Input from '../../common/input/Input'
-import { baseCurrencies, PRIORITY_CURRENCIES } from '../../../constants'
-import { useAppDispatch, useAppSelector } from '../../../hooks'
+import { baseCurrencies, PRIORITY_CURRENCIES } from '../constants'
+import { useAppDispatch, useAppSelector } from '../../../hooks/hooks'
 import {
   getRates,
   selectAmount,
@@ -87,8 +87,6 @@ const CurrencyConverterForm: FC<CurrencyConverterFormProps> = ({ converted, setC
   }
 
   const amountError = !isValidAmount(amount) ? 'Please enter a valid amount' : ''
-
-  console.log(status)
 
   return (
     <div className="content-box">
