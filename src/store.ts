@@ -1,14 +1,25 @@
-import { configureStore, type Action, type ThunkAction } from '@reduxjs/toolkit'
+import { combineReducers, configureStore, type Action, type ThunkAction } from '@reduxjs/toolkit'
 import currencyConverterReducer from './features/currencyConverter/currencySlice'
 
-export const store = configureStore({
-  reducer: {
-    currencyConverter: currencyConverterReducer,
-  },
+// export const store = configureStore({
+//   reducer: {
+//     currencyConverter: currencyConverterReducer,
+//   },
+// })
+
+const rootReducer = combineReducers({
+  currencyConverter: currencyConverterReducer,
 })
 
-export type AppStore = typeof store
-export type RootState = ReturnType<AppStore['getState']>
+export function setupStore(preloadedState?: Partial<RootState>) {
+  return configureStore({
+    reducer: rootReducer,
+    preloadedState,
+  })
+}
+
+export type RootState = ReturnType<typeof rootReducer>
+export type AppStore = ReturnType<typeof setupStore>
 export type AppDispatch = AppStore['dispatch']
 export type AppThunk<ThunkReturnType = void> = ThunkAction<
   ThunkReturnType,
@@ -16,3 +27,4 @@ export type AppThunk<ThunkReturnType = void> = ThunkAction<
   unknown,
   Action
 >
+export const store = setupStore()

@@ -6,7 +6,11 @@ import '@testing-library/jest-dom'
 const defaultProps: SelectProps = {
   id: 'select-id',
   label: 'Label',
-  options: ['Option 1', 'Option 2', 'Option 3'],
+  options: [
+    { label: 'Option 1', value: 'option-1' },
+    { label: 'Option 2', value: 'option-2' },
+    { label: 'Option 3', value: 'option-3' },
+  ],
 }
 
 describe('Select', () => {
@@ -14,21 +18,21 @@ describe('Select', () => {
     render(<Select {...defaultProps} />)
     const select = screen.getByLabelText('Label')
     expect(select).toBeInTheDocument()
-    expect(select).toHaveValue('Option 1')
+    expect(select).toHaveValue('option-1')
     expect(select).toHaveAttribute('id', 'select-id')
   })
 
   it('renders all provided options', () => {
     render(<Select {...defaultProps} />)
     defaultProps.options.forEach((option) => {
-      expect(screen.getByRole('option', { name: option })).toBeInTheDocument()
+      expect(screen.getByRole('option', { name: option.label })).toBeInTheDocument()
     })
   })
 
   it('changes value when user selects an option', () => {
     render(<Select {...defaultProps} />)
     const select = screen.getByLabelText('Label')
-    fireEvent.change(select, { target: { value: 'Option 2' } })
-    expect(select).toHaveValue('Option 2')
+    fireEvent.change(select, { target: { value: 'option-2' } })
+    expect(select).toHaveValue('option-2')
   })
 })

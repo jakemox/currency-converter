@@ -88,7 +88,7 @@ const CurrencyConverterForm: FC<CurrencyConverterFormProps> = ({ converted, setC
 
   const amountError = !isValidAmount(amount) ? 'Please enter a valid amount' : ''
 
-  // if (status === 'loading') return <div>Loading...</div>
+  console.log(status)
 
   return (
     <div className="content-box">
