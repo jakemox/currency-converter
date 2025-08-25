@@ -11,7 +11,7 @@ const SectionLayout: FC<PropsWithChildren<SectionLayoutProps>> = ({
   container = true,
   children,
 }: SectionLayoutProps) => (
-  <section className={`py-16 ${className}`}>
+  <section className={`py-10 md:py-16 ${className}`}>
     {container ? <div className="container">{children}</div> : children}
   </section>
 )

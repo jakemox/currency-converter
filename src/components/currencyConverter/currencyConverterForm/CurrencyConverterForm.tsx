@@ -68,6 +68,15 @@ const CurrencyConverterForm: FC<CurrencyConverterFormProps> = ({ converted, setC
     dispatch(getRates(baseCurrency))
   }, [dispatch, baseCurrency])
 
+  useEffect(() => {
+    if (!rates[targetCurrency.toLowerCase()]) {
+      const available = Object.keys(rates).find((code) => code.toUpperCase() !== baseCurrency)
+      if (available) {
+        dispatch(setTargetCurrency(available.toUpperCase()))
+      }
+    }
+  }, [rates, baseCurrency, targetCurrency, dispatch])
+
   const handleAmountChange = (e: ChangeEvent<HTMLInputElement>) => {
     dispatch(setAmount(e.target.value))
   }
@@ -118,11 +127,10 @@ const CurrencyConverterForm: FC<CurrencyConverterFormProps> = ({ converted, setC
         options={sortedTargetOptions}
         onChange={handleTargetCurrencyChange}
         disabled={status === 'failed'}
-        className="mb-8"
       />
       {!converted && (
         <button
-          className="w-full cursor-pointer rounded-full bg-blue-500 p-4 font-bold text-white hover:bg-blue-700 disabled:cursor-not-allowed disabled:bg-gray-300 disabled:text-gray-500"
+          className="button-primary mt-8 w-full"
           disabled={!!amountError || status === 'failed'}
           onClick={() => setConverted(true)}
         >

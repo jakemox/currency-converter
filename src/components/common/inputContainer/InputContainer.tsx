@@ -6,6 +6,7 @@ export interface InputContainerProps {
   label: string
   error?: string
   disabled?: boolean
+  showArrow?: boolean
   className?: string
 }
 
@@ -15,6 +16,7 @@ const InputContainer: FC<PropsWithChildren<InputContainerProps>> = ({
   error,
   disabled,
   className,
+  showArrow,
   children,
 }) => {
   return (
@@ -24,7 +26,8 @@ const InputContainer: FC<PropsWithChildren<InputContainerProps>> = ({
       </label>
       <div
         className={clsx(
-          'flex w-full rounded-lg border border-solid border-black p-4 text-2xl focus-within:outline-1 focus-within:outline-black',
+          'focus-within:outline-3 flex w-full rounded-lg border border-solid border-black p-3 text-lg focus-within:border-teal-700 focus-within:outline-teal-700 md:p-4 md:text-2xl',
+          showArrow && 'custom-arrow-wrapper relative',
           disabled && 'cursor-not-allowed border-gray-300 bg-gray-100 text-gray-500',
           error && 'border-red-700 focus-within:outline-red-700',
         )}

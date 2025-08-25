@@ -25,8 +25,8 @@ const CurrencyConverterResult: FC = () => {
   const { rate, inverseRate, name: targetCurrencyName } = rateInfo
 
   return (
-    <div className="content-box mt-10">
-      <p className="font-semibold">{`${amount} ${baseCurrencyName} = `}</p>
+    <div className="content-box background-navy mt-10">
+      <p className="text-lg font-semibold">{`${amount} ${baseCurrencyName} = `}</p>
       <p className="mb-4 mt-2 text-3xl font-semibold">
         {`${(parseFloat(amount) * rate).toFixed(2)} ${targetCurrencyName}`}
       </p>

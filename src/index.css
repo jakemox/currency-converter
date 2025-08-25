@@ -1,4 +1,9 @@
+@import url('https://fonts.googleapis.com/css2?family=Jost:ital,wght@0,100..900;1,100..900&display=swap');
 @import 'tailwindcss';
+
+body {
+  font-family: 'Jost', sans-serif;
+}
 
 @utility container {
   margin-inline: auto;
@@ -6,5 +11,47 @@
 }
 
 .content-box {
-  @apply mx-auto max-w-xl rounded-3xl bg-white p-6
+  @apply mx-auto max-w-xl rounded-3xl bg-white p-6 shadow-xl
+}
+
+.diagonal-split-bg {
+  background: linear-gradient(
+    185deg,
+    var(--color-teal-800) 0%,
+    var(--color-teal-800) 50%,
+    #fff 50%,
+    #fff 100%
+  );
+}
+
+.background-teal {
+  @apply bg-teal-800 text-orange-100
+}
+
+.background-navy {
+  @apply bg-blue-900 text-orange-100
+}
+
+.heading-1 {
+  @apply text-5xl md:text-8xl uppercase font-bold mb-6 md:mb-10
+}
+
+.text-body-lg {
+  @apply text-xl md:text-2xl
+}
+
+.button-primary {
+  @apply cursor-pointer rounded-full bg-pink-800 p-4 font-bold text-white hover:bg-pink-900 disabled:cursor-not-allowed disabled:bg-gray-300 disabled:text-gray-500 uppercase text-xl
+}
+
+.custom-arrow-wrapper::after {
+  content: '';
+  pointer-events: none;
+  position: absolute;
+  top: 50%;
+  right: 1rem;
+  width: 1em;
+  height: 1em;
+  transform: translateY(-50%);
+  background: url("data:image/svg+xml,%3Csvg width='20' height='20' fill='none' viewBox='0 0 20 20' xmlns='http://www.w3.org/2000/svg'%3E%3Cpath d='M6 8l4 4 4-4' stroke='%239CA3AF' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'/%3E%3C/svg%3E") no-repeat center/contain;
 }

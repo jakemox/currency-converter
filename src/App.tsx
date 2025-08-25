@@ -1,5 +1,5 @@
 import SectionLayout from './components/layout/SectionLayout'
-import CurrencyConverterSection from './components/currencyConverter/CurrencyConverter'
+import CurrencyConverter from './components/currencyConverter/CurrencyConverter'
 import { selectError, selectStatus } from './features/currencyConverter/currencySlice'
 import { useAppSelector } from './hooks/hooks'
 
@@ -14,8 +14,14 @@ function App() {
           {error}
         </div>
       )}
-      <SectionLayout>
-        <CurrencyConverterSection />
+      <SectionLayout className="background-teal text-center">
+        <h1 className="heading-1">Currency Converter</h1>
+        <p className="text-body-lg mx-auto max-w-xl">
+          Convert currencies to your heart's content, courtesy of Jake Moxon
+        </p>
+      </SectionLayout>
+      <SectionLayout className="diagonal-split-bg pt-0 md:pt-0">
+        <CurrencyConverter />
       </SectionLayout>
     </>
   )

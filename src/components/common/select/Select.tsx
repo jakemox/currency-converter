@@ -28,10 +28,10 @@ const Select: FC<SelectProps> = ({
   const containerProps = { id, label, error, disabled, className }
 
   return (
-    <InputContainer {...containerProps}>
+    <InputContainer showArrow {...containerProps}>
       <select
         id={id}
-        className="max-w-full grow text-ellipsis outline-none"
+        className="max-w-full grow appearance-none text-ellipsis bg-white outline-none after:content-none"
         disabled={disabled}
         {...selectProps}
       >
