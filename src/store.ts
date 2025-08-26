@@ -1,12 +1,6 @@
 import { combineReducers, configureStore, type Action, type ThunkAction } from '@reduxjs/toolkit'
 import currencyConverterReducer from './features/currencyConverter/currencySlice'
 
-// export const store = configureStore({
-//   reducer: {
-//     currencyConverter: currencyConverterReducer,
-//   },
-// })
-
 const rootReducer = combineReducers({
   currencyConverter: currencyConverterReducer,
 })

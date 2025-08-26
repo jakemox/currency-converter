@@ -6,6 +6,7 @@ export interface InputContainerProps {
   label: string
   error?: string
   disabled?: boolean
+  // showArrow used to display arrow on select dropdowns
   showArrow?: boolean
   className?: string
 }

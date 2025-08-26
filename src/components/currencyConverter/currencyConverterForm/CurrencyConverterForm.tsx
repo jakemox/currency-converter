@@ -12,14 +12,10 @@ import { baseCurrencies, PRIORITY_CURRENCIES } from '../constants'
 import { useAppDispatch, useAppSelector } from '../../../hooks/hooks'
 import {
   getRates,
-  selectAmount,
-  selectBaseCurrency,
-  selectRates,
-  selectTargetCurrency,
   setAmount,
   setBaseCurrency,
   setTargetCurrency,
-  selectStatus,
+  selectCurrencyConverterState,
 } from '../../../features/currencyConverter/currencySlice'
 
 export interface CurrencyConverterFormProps {
@@ -35,6 +31,7 @@ const getOptions = <Type extends { code: string; name: string }>(currencies?: Ty
   }))
 }
 
+// Show USD, GBP, EUR etc at the top of the target currencies dropdown list if they exist
 const sortCurrenciesByPriority = (options: Option[]): Option[] => {
   const prioritised = options
     .filter((option) => PRIORITY_CURRENCIES.includes(option.value))
@@ -46,9 +43,11 @@ const sortCurrenciesByPriority = (options: Option[]): Option[] => {
   ]
 }
 
+// Use regex to test if amount is positive a positive number with no more than 2 decimal places
 const isValidAmount = (value: string) =>
   /^\d*\.?\d{0,2}$/.test(value) && value !== '' && parseFloat(value) > 0
 
+// Format amount to 2 decimal places
 const formatCurrency = (value: string) => {
   const amount = parseFloat(value)
   if (isNaN(amount)) return ''
@@ -57,17 +56,21 @@ const formatCurrency = (value: string) => {
 
 const CurrencyConverterForm: FC<CurrencyConverterFormProps> = ({ converted, setConverted }) => {
   const dispatch = useAppDispatch()
-  const amount = useAppSelector(selectAmount)
-  const baseCurrency = useAppSelector(selectBaseCurrency)
-  const targetCurrency = useAppSelector(selectTargetCurrency)
-  const storeRates = useAppSelector(selectRates)
+  const {
+    amount,
+    baseCurrency,
+    targetCurrency,
+    status,
+    rates: storeRates,
+  } = useAppSelector(selectCurrencyConverterState)
+  // Memoize rates to avoid creating a new empty object on every render
   const rates = useMemo(() => storeRates || {}, [storeRates])
-  const status = useAppSelector(selectStatus)
 
   const baseOptions = getOptions(baseCurrencies)
   const targetOptions = getOptions(Object.values(rates))
   const sortedTargetOptions = sortCurrenciesByPriority(targetOptions)
 
+  // Find currency symbol for amount based on baseCurrency
   const amountPrefix = baseCurrencies.find(
     ({ code }) => code === baseCurrency.toUpperCase(),
   )?.symbol
@@ -90,6 +93,7 @@ const CurrencyConverterForm: FC<CurrencyConverterFormProps> = ({ converted, setC
     dispatch(setAmount(e.target.value))
   }
 
+  // Format the amount to 2 decimal places if valid when user leaves the amount input
   const handleAmountBlur = () => {
     if (isValidAmount(amount)) {
       dispatch(setAmount(formatCurrency(amount)))

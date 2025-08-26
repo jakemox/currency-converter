@@ -58,12 +58,7 @@ export const currencyConverterSlice = createSlice({
   },
 })
 
-export const selectAmount = (state: RootState) => state.currencyConverter.amount
-export const selectRates = (state: RootState) => state.currencyConverter.rates
-export const selectBaseCurrency = (state: RootState) => state.currencyConverter.baseCurrency
-export const selectTargetCurrency = (state: RootState) => state.currencyConverter.targetCurrency
-export const selectStatus = (state: RootState) => state.currencyConverter.status
-export const selectError = (state: RootState) => state.currencyConverter.error
+export const selectCurrencyConverterState = (state: RootState) => state.currencyConverter
 
 export const { setAmount, setBaseCurrency, setTargetCurrency } = currencyConverterSlice.actions
 export default currencyConverterSlice.reducer

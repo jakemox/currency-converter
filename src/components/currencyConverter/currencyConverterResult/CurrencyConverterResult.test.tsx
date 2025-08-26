@@ -21,7 +21,7 @@ const renderResult = (preloadedState = mockState) => {
 
 describe('CurrencyConverterResult', () => {
   it('renders the correct conversion result', () => {
-    // expected conversion rates calculated from mock data
+    // expected conversion rates calculated from mock data GPB to AUD rate
     renderResult({ ...mockState, rates: mockData })
     expect(screen.getByText('10.00 U.K. Pound Sterling =')).toBeInTheDocument()
     expect(screen.getByText('15.40 Australian Dollar')).toBeInTheDocument()

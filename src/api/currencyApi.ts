@@ -9,6 +9,7 @@ export async function fetchRates(baseCurrency: string) {
       throw new Error(`Response status: ${response.status}`)
     }
     const data: Rates = await response.json()
+    // Only keep the properties from the api that are needed.
     const rates = Object.entries(data).reduce(
       (res, [currency, { code, name, rate, inverseRate }]) => {
         res[currency] = { code, name, rate, inverseRate }

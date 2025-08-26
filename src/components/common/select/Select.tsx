@@ -31,7 +31,7 @@ const Select: FC<SelectProps> = ({
     <InputContainer showArrow {...containerProps}>
       <select
         id={id}
-        className="max-w-full grow appearance-none text-ellipsis bg-white outline-none after:content-none"
+        className="max-w-full grow appearance-none text-ellipsis outline-none after:content-none"
         disabled={disabled}
         {...selectProps}
       >

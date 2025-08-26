@@ -31,6 +31,7 @@ describe('CurrencyConverterForm', () => {
     expect(screen.getByLabelText('Amount')).toBeInTheDocument()
     expect(screen.getByLabelText('From')).toBeInTheDocument()
     expect(screen.getByLabelText('To')).toBeInTheDocument()
+    // /convert/i is regex to find the button with text Convert
     expect(screen.getByRole('button', { name: /convert/i })).toBeInTheDocument()
   })
 

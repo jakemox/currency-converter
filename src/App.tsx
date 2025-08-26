@@ -1,11 +1,10 @@
 import SectionLayout from './components/layout/SectionLayout'
 import CurrencyConverter from './components/currencyConverter/CurrencyConverter'
-import { selectError, selectStatus } from './features/currencyConverter/currencySlice'
+import { selectCurrencyConverterState } from './features/currencyConverter/currencySlice'
 import { useAppSelector } from './hooks/hooks'
 
 function App() {
-  const status = useAppSelector(selectStatus)
-  const error = useAppSelector(selectError)
+  const { status, error } = useAppSelector(selectCurrencyConverterState)
 
   return (
     <>

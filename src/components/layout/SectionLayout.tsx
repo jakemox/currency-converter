@@ -1,3 +1,4 @@
+import clsx from 'clsx'
 import type { FC, PropsWithChildren, ReactNode } from 'react'
 
 interface SectionLayoutProps {
@@ -11,7 +12,7 @@ const SectionLayout: FC<PropsWithChildren<SectionLayoutProps>> = ({
   container = true,
   children,
 }: SectionLayoutProps) => (
-  <section className={`py-10 md:py-16 ${className}`}>
+  <section className={clsx(className, 'py-10 md:py-16')}>
     {container ? <div className="container">{children}</div> : children}
   </section>
 )

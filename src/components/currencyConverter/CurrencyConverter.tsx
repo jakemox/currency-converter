@@ -8,6 +8,7 @@ const CurrencyConverter: FC = () => {
   return (
     <>
       <CurrencyConverterForm converted={converted} setConverted={setConverted} />
+      {/* Render the result once the first conversion has been run and it will remain on screen afterwards, updating live */}
       {converted && <CurrencyConverterResult />}
     </>
   )
